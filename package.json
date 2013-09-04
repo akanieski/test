@@ -2,7 +2,9 @@
   "name": "test",
   "version": "0.0.1",
   "author": "",
-  "dependencies": {},
+  "dependencies": {
+    "flow": "~0.2.3"
+  },
   "devDependencies": {},
   "engines": {
     "node": "0.8.x"

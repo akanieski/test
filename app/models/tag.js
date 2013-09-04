@@ -1,10 +1,9 @@
-var Post = function () {
+var Tag = function () {
 
   this.defineProperties({
-    title: {type: 'string', required: true},
-    comments: {type: 'object'}
+    value: {type: 'string'}
   });
-  this.hasMany('Tags');
+  this.belongsTo('Post');
   /*
   this.property('login', 'string', {required: true});
   this.property('password', 'string', {required: true});
@@ -31,15 +30,15 @@ var Post = function () {
 
 /*
 // Can also define them on the prototype
-Post.prototype.someOtherMethod = function () {
+Tag.prototype.someOtherMethod = function () {
   // Do some other stuff
 };
 // Can also define static methods and properties
-Post.someStaticMethod = function () {
+Tag.someStaticMethod = function () {
   // Do some other stuff
 };
-Post.someStaticProperty = 'YYZ';
+Tag.someStaticProperty = 'YYZ';
 */
 
-exports.Post = Post;
+exports.Tag = Tag;
 

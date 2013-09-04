@@ -1,11 +1,28 @@
+var flow = require('flow');
+
 var Posts = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
   this.index = function (req, resp, params) {
     var self = this;
 
+    // Get each post
     geddy.model.Post.all(function(err, posts) {
-      self.respond({params: params, posts: posts});
+      // Get all Tags related to each post
+      flow.exec(function(){
+        var next = this;
+        if(posts.length === 0) next(); // No posts just move on
+        posts.forEach(function(p){
+          geddy.model.Tag.all({postId: p.id}, next.MULTI(p.id));
+        });
+      }, function(results) {
+        // When all tags are fetched, attach them to there posts
+        posts.forEach(function(p){
+          p.tags = results[p.id][1];
+        });
+        // return posts
+        self.respond({params: params, posts: posts});
+      });
     });
   };
 
