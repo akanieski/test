@@ -13,6 +13,14 @@ var Posts = function () {
         var next = this;
         if(posts.length === 0) next(); // No posts just move on
         posts.forEach(function(p){
+          var tag = geddy.model.Tag.create({postId: p.id, value: "Test Tag"});
+          tag.save(next.MULTI());
+        });
+      }, function(){ 
+        // All posts are sure to now have tags
+        var next = this;
+        if(posts.length === 0) next(); // No posts just move on
+        posts.forEach(function(p){
           geddy.model.Tag.all({postId: p.id}, next.MULTI(p.id));
         });
       }, function(results) {
